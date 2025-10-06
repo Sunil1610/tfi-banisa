@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFI Banisa - Minimal Clean Design Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&family=IBM+Plex+Sans:wght@400;500;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+            background: #FAFAFA;
+            color: #000000;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            border: 6px solid #000000;
+            padding: 3rem 2rem;
+            margin-bottom: 4rem;
+            background: #FFFFFF;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: 12px;
+            bottom: 12px;
+            border: 6px solid #FF3366;
+            z-index: -1;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #666666;
+        }
+
+        /* Grid system */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Mode cards */
+        .mode-card {
+            border: 4px solid #000000;
+            background: #FFFFFF;
+            padding: 3rem 2rem;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: 8px;
+            bottom: 8px;
+            background: #000000;
+            z-index: -1;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mode-card:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        .mode-card:hover::before {
+            transform: translate(8px, 8px);
+        }
+
+        .mode-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #FF3366;
+            margin-bottom: 1.5rem;
+        }
+
+        .mode-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .mode-description {
+            font-size: 1.05rem;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .mode-icon {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Game interface */
+        .game-container {
+            border: 6px solid #000000;
+            background: #FFFFFF;
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-box {
+            border: 3px solid #000000;
+            padding: 2rem 1.5rem;
+            background: #FAFAFA;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            color: #666666;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #000000;
+        }
+
+        /* Progress section */
+        .progress-section {
+            margin-bottom: 3rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .progress-label {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        .progress-percent {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .progress-bar {
+            height: 24px;
+            background: #E0E0E0;
+            border: 3px solid #000000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #FF3366;
+            width: 58%;
+            transition: width 0.4s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 6px;
+            height: 100%;
+            background: #000000;
+        }
+
+        /* Section title */
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 4px solid #000000;
+        }
+
+        /* Clue grid */
+        .clue-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .clue-tile {
+            aspect-ratio: 1;
+            border: 4px solid #000000;
+            background: #FAFAFA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.15s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .clue-tile:hover {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        .clue-tile.revealed {
+            background: #FFFFFF;
+            border-color: #FF3366;
+        }
+
+        .clue-tile.revealed:hover {
+            background: #FFFFFF;
+            color: #000000;
+        }
+
+        .clue-content {
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .clue-hidden {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #E0E0E0;
+        }
+
+        .clue-tile:hover .clue-hidden {
+            color: #FFFFFF;
+        }
+
+        /* Alert box */
+        .alert-box {
+            border: 4px solid #FF3366;
+            background: #FFFFFF;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            border: 4px solid #000000;
+            background: #FAFAFA;
+            padding: 1.25rem 1.5rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            background: #FFFFFF;
+            border-color: #FF3366;
+        }
+
+        .form-input::placeholder {
+            color: #999999;
+        }
+
+        /* Button */
+        .btn-primary {
+            width: 100%;
+            border: 4px solid #000000;
+            background: #FF3366;
+            color: #FFFFFF;
+            padding: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: 8px;
+            bottom: 8px;
+            background: #000000;
+            z-index: -1;
+            transition: all 0.15s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translate(-4px, -4px);
+        }
+
+        .btn-primary:hover::before {
+            transform: translate(8px, 8px);
+        }
+
+        .btn-primary:active {
+            transform: translate(0, 0);
+        }
+
+        .btn-primary:active::before {
+            transform: translate(4px, 4px);
+        }
+
+        .btn-primary:disabled {
+            background: #CCCCCC;
+            border-color: #999999;
+            cursor: not-allowed;
+        }
+
+        .btn-primary:disabled::before {
+            background: #999999;
+        }
+
+        .btn-primary:disabled:hover {
+            transform: none;
+        }
+
+        /* Secondary button */
+        .btn-secondary {
+            width: 100%;
+            border: 4px solid #000000;
+            background: #FFFFFF;
+            color: #000000;
+            padding: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            margin-bottom: 2rem;
+        }
+
+        .btn-secondary:hover {
+            background: #000000;
+            color: #FFFFFF;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 6px solid #000000;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            font-size: 1.1rem;
+            color: #666666;
+        }
+
+        /* Divider */
+        .divider {
+            height: 4px;
+            background: #000000;
+            margin: 4rem 0;
+        }
+
+        /* Info banner */
+        .info-banner {
+            border: 4px solid #000000;
+            background: #00FF88;
+            color: #000000;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .container { padding: 1rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .game-container { padding: 1.5rem; }
+            .mode-title { font-size: 2rem; }
+            header::before { display: none; }
+            .btn-primary::before,
+            .mode-card::before { display: none; }
+            .mode-card:hover,
+            .btn-primary:hover { transform: none; }
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="animate-in">
+            <h1>TFI<br>BANISA</h1>
+            <p class="subtitle">Telugu Cinema Knowledge Test</p>
+        </header>
+
+        <div class="grid-2 animate-in">
+            <div class="mode-card">
+                <div class="mode-number">[01]</div>
+                <div class="mode-icon">🎬</div>
+                <h2 class="mode-title">KATHA<br>VINTAAVA</h2>
+                <p class="mode-description">
+                    Guess Telugu movies from clues. Test your cinema knowledge with strategic reveals.
+                </p>
+            </div>
+
+            <div class="mode-card">
+                <div class="mode-number">[02]</div>
+                <div class="mode-icon">🎵</div>
+                <h2 class="mode-title">SAREGA<br>MAPA</h2>
+                <p class="mode-description">
+                    Identify Telugu songs from audio clips. Challenge your musical memory and intuition.
+                </p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="game-container animate-in">
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-label">Guesses</div>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value">420</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Streak</div>
+                    <div class="stat-value">3</div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <span class="progress-label">Progress</span>
+                    <span class="progress-percent">58%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Clues</h2>
+
+            <div class="clue-grid">
+                <div class="clue-tile revealed">
+                    <div class="clue-content">
+                        DESCRIPTION:<br>
+                        Epic love story
+                    </div>
+                </div>
+
+                <div class="clue-tile revealed">
+                    <div class="clue-content">
+                        YEAR:<br>
+                        2009
+                    </div>
+                </div>
+
+                <div class="clue-tile">
+                    <div class="clue-hidden">?</div>
+                </div>
+
+                <div class="clue-tile">
+                    <div class="clue-hidden">?</div>
+                </div>
+            </div>
+
+            <div class="alert-box">
+                ⚡ CORRECT STREAK: 3 MOVIES
+            </div>
+
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Your Guess</label>
+                    <input
+                        type="text"
+                        class="form-input"
+                        placeholder="Type movie name..."
+                    >
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    Submit
+                </button>
+            </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <footer class="animate-in">
+            <div class="footer-content">
+                <div class="footer-icon">🏆</div>
+                <h3 class="footer-title">Challenge Friends</h3>
+                <p class="footer-text">
+                    Share your score and compete with fellow Telugu cinema enthusiasts
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive clue tiles
+        document.querySelectorAll('.clue-tile:not(.revealed)').forEach(tile => {
+            tile.addEventListener('click', function() {
+                if (!this.classList.contains('revealed')) {
+                    this.classList.add('revealed');
+                    this.innerHTML = `
+                        <div class="clue-content">
+                            ACTORS:<br>
+                            Prabhas, Anushka
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Animate progress on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.progress-fill').style.width = '75%';
+                document.querySelector('.progress-percent').textContent = '75%';
+            }, 300);
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
