@@ -1,9 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Form, Button, Alert, ProgressBar, Badge } from 'react-bootstrap';
-import { Typeahead } from 'react-bootstrap-typeahead';
-import { PlayFill, PauseFill, MusicNote, Clock, Star, Trophy, ArrowClockwise, VolumeUp } from 'react-bootstrap-icons';
+import { Play, Pause, Music, Clock, Star, Trophy, RotateCcw, Volume2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { Label } from '@/components/ui/label';
+import { Autocomplete } from '@/components/ui/autocomplete';
 
 interface Song {
   title: string;
@@ -40,10 +44,10 @@ const Saregamapa = () => {
         fetch('/api/song'),
         fetch('/api/songs')
       ]);
-      
+
       const songData = await songRes.json();
       const songsData = await songsRes.json();
-      
+
       setSong(songData);
       setSongOptions(songsData);
     } catch (error) {
@@ -138,89 +142,83 @@ const Saregamapa = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-5">
-        <div className="loading mb-3">
-          <MusicNote size={40} className="text-primary" />
-        </div>
-        <p className="text-muted">Loading new song challenge...</p>
+      <div className="text-center py-12">
+        <Music size={40} className="mx-auto text-primary mb-3 animate-pulse" />
+        <p className="text-muted-foreground">Loading new song challenge...</p>
       </div>
     );
   }
 
   if (!song.url) {
-    return <div className="text-center py-5 text-muted">Failed to load game. Please try again.</div>;
+    return <div className="text-center py-12 text-muted-foreground">Failed to load game. Please try again.</div>;
   }
 
   const progressPercentage = ((5 - guessesLeft) / 5) * 100;
 
   return (
-    <div className="slide-in">
+    <div className="slide-in space-y-6">
       {/* Game Stats */}
-      <div className="d-flex justify-content-between align-items-center mb-4 p-3 rounded"
-           style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
-        <div className="d-flex align-items-center">
-          <Clock className="me-2 text-primary" size={20} />
-          <span className="fw-semibold">Guesses Left: </span>
-          <Badge bg="primary" className="ms-2">{guessesLeft}</Badge>
-        </div>
-        <div className="d-flex align-items-center">
-          <Star className="me-2 text-warning" size={20} />
-          <span className="fw-semibold">Score: </span>
-          <Badge bg="warning" text="dark" className="ms-2">{score}</Badge>
-        </div>
-      </div>
+      <Card>
+        <CardContent className="p-4 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Clock className="text-primary" size={20} />
+            <span className="font-semibold">Guesses Left:</span>
+            <Badge variant="default">{guessesLeft}</Badge>
+          </div>
+          <div className="flex items-center gap-2">
+            <Star className="text-yellow-500" size={20} />
+            <span className="font-semibold">Score:</span>
+            <Badge variant="secondary">{score}</Badge>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Progress Bar */}
-      <div className="mb-4">
-        <div className="d-flex justify-content-between align-items-center mb-2">
-          <span className="small text-muted">Game Progress</span>
-          <span className="small text-muted">{Math.round(progressPercentage)}%</span>
+      <div className="space-y-2">
+        <div className="flex justify-between items-center text-sm">
+          <span className="text-muted-foreground">Game Progress</span>
+          <span className="text-muted-foreground">{Math.round(progressPercentage)}%</span>
         </div>
-        <ProgressBar
-          now={progressPercentage}
-          className="mb-2"
-          style={{ height: '6px' }}
-        />
+        <Progress value={progressPercentage} className="h-2" />
       </div>
 
-      <p className="text-center text-muted mb-4">
+      <p className="text-center text-muted-foreground">
         🎵 Listen to the audio clip and guess the Telugu song
       </p>
 
       {/* Audio Player */}
-      <div className="text-center mb-4 p-4 rounded" style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)' }}>
-        <audio ref={audioRef} src={song.url} />
-        <Button
-          onClick={playSongClip}
-          variant="primary"
-          size="lg"
-          className="rounded-circle mb-3"
-          style={{width: '80px', height: '80px'}}
-        >
-          {isPlaying ? <PauseFill size={40} /> : <PlayFill size={40} />}
-        </Button>
-        <div className="d-flex align-items-center justify-content-center mb-2">
-          <VolumeUp className="me-2 text-primary" size={20} />
-          <span className="fw-semibold">Audio Duration: {clipDuration}s</span>
-        </div>
-        <ProgressBar
-          now={progress}
-          className="mt-2"
-          animated={isPlaying}
-          variant="info"
-        />
-      </div>
+      <Card className="border-2 border-primary">
+        <CardContent className="p-6 text-center space-y-4">
+          <audio ref={audioRef} src={song.url} />
+          <Button
+            onClick={playSongClip}
+            variant="default"
+            size="lg"
+            className="rounded-full w-20 h-20"
+          >
+            {isPlaying ? <Pause size={40} /> : <Play size={40} />}
+          </Button>
+          <div className="flex items-center justify-center gap-2">
+            <Volume2 className="text-primary" size={20} />
+            <span className="font-semibold">Audio Duration: {clipDuration}s</span>
+          </div>
+          <Progress
+            value={progress}
+            className={`h-2 ${isPlaying ? 'animate-pulse' : ''}`}
+          />
+        </CardContent>
+      </Card>
 
       {/* Revealed Clues */}
       {revealedClues.length > 0 && (
-        <div className="mb-4">
-          <h6 className="text-center mb-3">🔍 Clues Revealed</h6>
-          <div className="d-flex flex-wrap gap-2 justify-content-center">
+        <div className="space-y-3">
+          <h6 className="text-center font-semibold">🔍 Clues Revealed</h6>
+          <div className="flex flex-wrap gap-2 justify-center">
             {revealedClues.map((clue, idx) => (
               <Badge
                 key={idx}
-                bg="info"
-                className="p-2 slide-in"
+                variant="secondary"
+                className="px-3 py-1 text-sm slide-in"
                 style={{ animationDelay: `${idx * 0.1}s` }}
               >
                 {clue}
@@ -232,70 +230,64 @@ const Saregamapa = () => {
 
       {/* Message Alert */}
       {message && (
-        <Alert
-          variant={gameOver && message.includes('🎵') ? 'success' : 'danger'}
-          className="text-center fw-semibold"
-        >
-          {message}
-        </Alert>
+        <Card className={`border-2 ${gameOver && message.includes('🎵') ? 'border-green-500 bg-green-50 dark:bg-green-950' : 'border-red-500 bg-red-50 dark:bg-red-950'}`}>
+          <CardContent className="p-4 text-center font-semibold">
+            {message}
+          </CardContent>
+        </Card>
       )}
 
       {/* Game Form */}
       {!gameOver && (
-        <Form
+        <form
           onSubmit={(e) => {
             e.preventDefault();
             handleGuess();
           }}
-          className="slide-in"
+          className="space-y-4 slide-in"
         >
-          <Form.Group className="mb-4">
-            <Form.Label className="fw-semibold mb-3">Your Guess:</Form.Label>
-            <Typeahead
+          <div className="space-y-3">
+            <Label className="text-base font-semibold">Your Guess:</Label>
+            <Autocomplete
               id="song-typeahead"
               options={songOptions}
-              onChange={(selected) => setGuess(selected as string[])}
+              onChange={(selected) => setGuess(selected)}
               selected={guess}
               placeholder="Start typing a song name..."
-              size="lg"
-              className="typeahead-input"
               disabled={gameOver}
             />
-          </Form.Group>
-          <div className="d-grid">
-            <Button
-              variant="primary"
-              type="submit"
-              size="lg"
-              disabled={guess.length === 0}
-              className="py-3 fw-bold"
-            >
-              🎯 Submit Guess
-            </Button>
           </div>
-        </Form>
+          <Button
+            type="submit"
+            disabled={guess.length === 0}
+            className="w-full h-12 text-base font-bold"
+            size="lg"
+          >
+            🎯 Submit Guess
+          </Button>
+        </form>
       )}
 
       {/* Game Over Actions */}
       {gameOver && (
-        <div className="text-center slide-in">
-          <div className="d-grid gap-2">
-            <Button
-              variant="secondary"
-              onClick={restartGame}
-              size="lg"
-              className="py-3 fw-bold"
-            >
-              <ArrowClockwise className="me-2" size={20} />
-              Play Again
-            </Button>
-            {message.includes('🎵') && (
-              <div className="mt-3 p-3 rounded" style={{ background: 'var(--card-bg)' }}>
-                <Trophy className="text-warning me-2" size={24} />
-                <span className="fw-bold">Great job! Share your score with friends!</span>
-              </div>
-            )}
-          </div>
+        <div className="text-center space-y-4 slide-in">
+          <Button
+            variant="secondary"
+            onClick={restartGame}
+            size="lg"
+            className="w-full h-12 text-base font-bold"
+          >
+            <RotateCcw className="mr-2" size={20} />
+            Play Again
+          </Button>
+          {message.includes('🎵') && (
+            <Card className="border-yellow-500 bg-yellow-50 dark:bg-yellow-950">
+              <CardContent className="p-4 flex items-center justify-center gap-2">
+                <Trophy className="text-yellow-500" size={24} />
+                <span className="font-bold">Great job! Share your score with friends!</span>
+              </CardContent>
+            </Card>
+          )}
         </div>
       )}
     </div>
