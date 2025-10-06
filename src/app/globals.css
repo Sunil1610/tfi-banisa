@@ -73,7 +73,7 @@ body {
 }
 
 /* Specific overrides for common elements */
-.container, .container-fluid, .row, .col, .col-* {
+.container, .container-fluid, .row, [class*="col-"] {
   color: var(--text-color) !important;
 }
 
