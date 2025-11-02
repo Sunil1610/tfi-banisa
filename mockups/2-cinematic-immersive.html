@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFI Banisa - Cinematic Design Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #0A0A0A;
+            color: #FEF3C7;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Theater curtain effect */
+        .curtain-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at center top, rgba(124, 45, 18, 0.3) 0%, transparent 60%),
+                linear-gradient(to bottom, #0A0A0A 0%, #1A0F0F 50%, #0A0A0A 100%);
+            z-index: 0;
+        }
+
+        /* Spotlight vignette */
+        .spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 40%, transparent 20%, rgba(10, 10, 10, 0.8) 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Film grain texture */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.05"/%3E%3C/svg%3E');
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 2;
+            animation: grain 0.3s steps(2) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-2%, -2%); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Marquee header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .marquee-border {
+            border: 6px solid #DC2626;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(124, 45, 18, 0.1));
+            box-shadow:
+                0 0 30px rgba(220, 38, 38, 0.3),
+                inset 0 0 30px rgba(220, 38, 38, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .marquee-border::before,
+        .marquee-border::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                #FBBF24 0px,
+                #FBBF24 20px,
+                transparent 20px,
+                transparent 40px
+            );
+        }
+
+        .marquee-border::before { top: 0; }
+        .marquee-border::after { bottom: 0; }
+
+        /* Light bulbs decoration */
+        .light-bulb {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #FBBF24;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #FBBF24;
+            animation: bulb-glow 1.5s infinite alternate;
+        }
+
+        @keyframes bulb-glow {
+            0% { opacity: 0.6; box-shadow: 0 0 10px #FBBF24; }
+            100% { opacity: 1; box-shadow: 0 0 25px #FBBF24; }
+        }
+
+        .light-bulb:nth-child(1) { top: 20px; left: 10%; animation-delay: 0s; }
+        .light-bulb:nth-child(2) { top: 20px; left: 30%; animation-delay: 0.3s; }
+        .light-bulb:nth-child(3) { top: 20px; right: 30%; animation-delay: 0.6s; }
+        .light-bulb:nth-child(4) { top: 20px; right: 10%; animation-delay: 0.9s; }
+
+        h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5rem;
+            color: #DC2626;
+            text-shadow:
+                0 0 10px rgba(220, 38, 38, 0.8),
+                0 0 20px rgba(220, 38, 38, 0.6),
+                0 0 30px rgba(220, 38, 38, 0.4),
+                3px 3px 0 rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            animation: neon-flicker 4s infinite;
+        }
+
+        @keyframes neon-flicker {
+            0%, 100% { opacity: 1; }
+            2%, 8%, 15% { opacity: 0.9; }
+            3%, 9% { opacity: 1; }
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #FBBF24;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Film reel decoration */
+        .film-reel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .reel-container {
+            width: 80px;
+            height: 80px;
+            border: 4px solid #7C2D12;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1A0F0F, #3A1F1F);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            animation: rotate-reel 10s linear infinite;
+        }
+
+        @keyframes rotate-reel {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .reel-holes {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #DC2626;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .reel-hole {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #0A0A0A;
+            border-radius: 50%;
+        }
+
+        .reel-hole:nth-child(1) { top: 5px; left: 50%; transform: translateX(-50%); }
+        .reel-hole:nth-child(2) { bottom: 5px; left: 50%; transform: translateX(-50%); }
+        .reel-hole:nth-child(3) { left: 5px; top: 50%; transform: translateY(-50%); }
+        .reel-hole:nth-child(4) { right: 5px; top: 50%; transform: translateY(-50%); }
+
+        /* Movie modes */
+        .movie-modes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .movie-poster {
+            position: relative;
+            background: linear-gradient(135deg, #1A0F0F, #3A1F1F);
+            border: 4px solid #7C2D12;
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.8),
+                inset 0 0 20px rgba(220, 38, 38, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .movie-poster::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .movie-poster:hover {
+            transform: scale(1.05) translateY(-10px);
+            border-color: #DC2626;
+            box-shadow:
+                0 20px 60px rgba(220, 38, 38, 0.4),
+                0 0 40px rgba(220, 38, 38, 0.3);
+        }
+
+        .movie-poster:hover::before {
+            left: 100%;
+        }
+
+        .poster-icon {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+        }
+
+        .poster-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: #DC2626;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.1em;
+        }
+
+        .poster-description {
+            text-align: center;
+            color: #FEF3C7;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* Theater screen */
+        .theater-screen {
+            background: linear-gradient(to bottom, #1A0F0F 0%, #0A0A0A 100%);
+            border: 8px solid #7C2D12;
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow:
+                0 0 60px rgba(220, 38, 38, 0.3),
+                inset 0 0 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* Film strip progress */
+        .film-strip-progress {
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .film-strip {
+            height: 60px;
+            background:
+                repeating-linear-gradient(90deg,
+                    #1A0F0F 0px,
+                    #1A0F0F 8px,
+                    #7C2D12 8px,
+                    #7C2D12 10px
+                ),
+                linear-gradient(to bottom, #3A1F1F 0%, #1A0F0F 100%);
+            border: 3px solid #7C2D12;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .film-strip::before,
+        .film-strip::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: repeating-linear-gradient(90deg,
+                transparent 0px,
+                transparent 15px,
+                #0A0A0A 15px,
+                #0A0A0A 25px
+            );
+        }
+
+        .film-strip::before { top: 8px; }
+        .film-strip::after { bottom: 8px; }
+
+        .film-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 60%;
+            background: linear-gradient(90deg, #DC2626, #FBBF24);
+            opacity: 0.4;
+            transition: width 0.5s ease;
+        }
+
+        .progress-label {
+            text-align: center;
+            margin-top: 1rem;
+            color: #FBBF24;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Ticket stub stats */
+        .ticket-stubs {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .ticket-stub {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #7C2D12, #DC2626);
+            border: 3px dashed #FBBF24;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            clip-path: polygon(
+                0% 0%, calc(100% - 20px) 0%, 100% 20px,
+                100% 100%, 20px 100%, 0% calc(100% - 20px)
+            );
+        }
+
+        .ticket-stub::before {
+            content: 'ADMIT ONE';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.7rem;
+            color: #FBBF24;
+            opacity: 0.5;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .ticket-label {
+            font-size: 0.85rem;
+            color: #FEF3C7;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .ticket-value {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: #FBBF24;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Clue cards with curtain reveal */
+        .clue-stage {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .clue-curtain {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #7C2D12, #DC2626);
+            border: 3px solid #FBBF24;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clue-curtain:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(220, 38, 38, 0.6);
+        }
+
+        .curtain-fold {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(90deg,
+                    #7C2D12 0px,
+                    #8B3516 10px,
+                    #7C2D12 20px
+                );
+            transition: transform 0.6s ease;
+        }
+
+        .curtain-left {
+            left: 0;
+            box-shadow: inset -10px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .curtain-right {
+            right: 0;
+            box-shadow: inset 10px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .clue-curtain.revealed .curtain-left {
+            transform: translateX(-100%);
+        }
+
+        .clue-curtain.revealed .curtain-right {
+            transform: translateX(100%);
+        }
+
+        .clue-content {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            background: #0A0A0A;
+            color: #FBBF24;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .clue-question {
+            font-size: 4rem;
+            color: #7C2D12;
+        }
+
+        /* Popcorn input */
+        .popcorn-input-container {
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 1rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: #DC2626;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .cinema-input {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #1A0F0F, #0A0A0A);
+            border: 3px solid #7C2D12;
+            border-radius: 8px;
+            color: #FEF3C7;
+            font-size: 1.2rem;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .cinema-input:focus {
+            outline: none;
+            border-color: #DC2626;
+            box-shadow:
+                0 0 20px rgba(220, 38, 38, 0.4),
+                inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .cinema-input::placeholder {
+            color: #7C2D12;
+        }
+
+        /* Action button */
+        .cinema-button {
+            width: 100%;
+            padding: 1.8rem;
+            background: linear-gradient(135deg, #DC2626, #7C2D12);
+            border: 4px solid #FBBF24;
+            border-radius: 8px;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2rem;
+            color: #FBBF24;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 8px 24px rgba(220, 38, 38, 0.4);
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cinema-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cinema-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px rgba(220, 38, 38, 0.6);
+        }
+
+        .cinema-button:hover::before {
+            left: 100%;
+        }
+
+        /* Alert banner */
+        .cinema-alert {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(124, 45, 18, 0.2));
+            border: 3px solid #DC2626;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #FBBF24;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            animation: alert-pulse 2s infinite;
+        }
+
+        @keyframes alert-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(220, 38, 38, 0.8); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .trophy-display {
+            background: linear-gradient(135deg, #7C2D12, #DC2626);
+            border: 5px solid #FBBF24;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.4);
+        }
+
+        .trophy-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: trophy-shine 3s infinite;
+        }
+
+        @keyframes trophy-shine {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #FBBF24); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 30px #FBBF24); }
+        }
+
+        .trophy-title {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.5rem;
+            color: #FBBF24;
+            margin-bottom: 0.5rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .container { padding: 1rem; }
+            .theater-screen { padding: 1.5rem; }
+            .ticket-stubs { flex-direction: column; }
+            .clue-stage { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="curtain-bg"></div>
+    <div class="spotlight"></div>
+    <div class="film-grain"></div>
+
+    <div class="container">
+        <header>
+            <div class="marquee-border">
+                <div class="light-bulb"></div>
+                <div class="light-bulb"></div>
+                <div class="light-bulb"></div>
+                <div class="light-bulb"></div>
+
+                <h1>TFI BANISA</h1>
+                <p class="subtitle">A Cinematic Journey Through Telugu Cinema</p>
+            </div>
+
+            <div class="film-reel">
+                <div class="reel-container">
+                    <div class="reel-holes">
+                        <div class="reel-hole"></div>
+                        <div class="reel-hole"></div>
+                        <div class="reel-hole"></div>
+                        <div class="reel-hole"></div>
+                    </div>
+                </div>
+                <div style="font-size: 3rem;">🎬</div>
+                <div class="reel-container">
+                    <div class="reel-holes">
+                        <div class="reel-hole"></div>
+                        <div class="reel-hole"></div>
+                        <div class="reel-hole"></div>
+                        <div class="reel-hole"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="movie-modes">
+            <div class="movie-poster">
+                <div class="poster-icon">🎬</div>
+                <h2 class="poster-title">KATHA VINTAAVA</h2>
+                <p class="poster-description">
+                    Step into the world of Telugu cinema. Guess iconic movies from carefully crafted clues.
+                    Your knowledge will be tested!
+                </p>
+            </div>
+
+            <div class="movie-poster">
+                <div class="poster-icon">🎵</div>
+                <h2 class="poster-title">SAREGAMAPA</h2>
+                <p class="poster-description">
+                    Listen to the melodies that defined generations. Identify legendary Telugu songs
+                    from audio clips. Let the music guide you!
+                </p>
+            </div>
+        </div>
+
+        <div class="theater-screen">
+            <div class="ticket-stubs">
+                <div class="ticket-stub">
+                    <div class="ticket-label">Guesses Remaining</div>
+                    <div class="ticket-value">5</div>
+                </div>
+                <div class="ticket-stub">
+                    <div class="ticket-label">Your Score</div>
+                    <div class="ticket-value">420</div>
+                </div>
+                <div class="ticket-stub">
+                    <div class="ticket-label">Winning Streak</div>
+                    <div class="ticket-value">3</div>
+                </div>
+            </div>
+
+            <div class="film-strip-progress">
+                <div class="film-strip">
+                    <div class="film-progress"></div>
+                </div>
+                <div class="progress-label">🎞️ SCENE 3 OF 6 🎞️</div>
+            </div>
+
+            <div class="clue-stage">
+                <div class="clue-curtain revealed">
+                    <div class="clue-content">
+                        <div><strong>DESCRIPTION:</strong><br>Epic Love Story</div>
+                    </div>
+                    <div class="curtain-fold curtain-left"></div>
+                    <div class="curtain-fold curtain-right"></div>
+                </div>
+
+                <div class="clue-curtain revealed">
+                    <div class="clue-content">
+                        <div><strong>YEAR:</strong><br>2009</div>
+                    </div>
+                    <div class="curtain-fold curtain-left"></div>
+                    <div class="curtain-fold curtain-right"></div>
+                </div>
+
+                <div class="clue-curtain">
+                    <div class="clue-content">
+                        <div class="clue-question">?</div>
+                    </div>
+                    <div class="curtain-fold curtain-left"></div>
+                    <div class="curtain-fold curtain-right"></div>
+                </div>
+
+                <div class="clue-curtain">
+                    <div class="clue-content">
+                        <div class="clue-question">?</div>
+                    </div>
+                    <div class="curtain-fold curtain-left"></div>
+                    <div class="curtain-fold curtain-right"></div>
+                </div>
+            </div>
+
+            <div class="cinema-alert">
+                🌟 SPOTLIGHT ON YOU! You're doing amazing! 🌟
+            </div>
+
+            <div class="popcorn-input-container">
+                <label class="input-label">🍿 ENTER YOUR GUESS 🍿</label>
+                <input type="text" class="cinema-input" placeholder="Type the movie name...">
+            </div>
+
+            <button class="cinema-button">
+                🎯 SUBMIT ANSWER 🎯
+            </button>
+        </div>
+
+        <footer>
+            <div class="trophy-display">
+                <div class="trophy-icon">🏆</div>
+                <h3 class="trophy-title">Challenge Fellow Cinephiles!</h3>
+                <p style="color: #FEF3C7; font-size: 1.1rem;">
+                    Share your legendary scores with friends and family
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive curtain reveal
+        document.querySelectorAll('.clue-curtain:not(.revealed)').forEach(curtain => {
+            curtain.addEventListener('click', function() {
+                if (!this.classList.contains('revealed')) {
+                    this.classList.add('revealed');
+                    setTimeout(() => {
+                        this.querySelector('.clue-content').innerHTML =
+                            '<div><strong>ACTORS:</strong><br>Prabhas, Anushka</div>';
+                    }, 300);
+                }
+            });
+        });
+
+        // Animate progress on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.film-progress').style.width = '75%';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

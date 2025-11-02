@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from 'next/font/google';
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-bootstrap-typeahead/css/Typeahead.css";
 import "./globals.css";
 import { AppProvider } from '@/components/AppProvider';
 

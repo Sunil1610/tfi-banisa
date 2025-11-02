@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TFI Banisa - Retro Cinema Design Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Lora:wght@400;600&family=Courier+Prime:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: #FFF8E7;
+            color: #2D3142;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Vintage paper texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139, 69, 19, 0.03) 2px,
+                    rgba(139, 69, 19, 0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.3;
+        }
+
+        /* Film grain effect */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" /%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)" opacity="0.08"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Vintage poster header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7B801 50%, #004E89 100%);
+            border: 12px solid #2D3142;
+            border-radius: 8px;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 100px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.05) 10px,
+                    rgba(255, 255, 255, 0.05) 20px
+                );
+        }
+
+        /* Corner ornaments */
+        .corner-ornament {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 4px solid #2D3142;
+        }
+
+        .corner-ornament.top-left {
+            top: 20px;
+            left: 20px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-ornament.top-right {
+            top: 20px;
+            right: 20px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-ornament.bottom-left {
+            bottom: 20px;
+            left: 20px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-ornament.bottom-right {
+            bottom: 20px;
+            right: 20px;
+            border-left: none;
+            border-top: none;
+        }
+
+        h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            color: #FFF8E7;
+            text-shadow:
+                4px 4px 0 #2D3142,
+                6px 6px 0 #FF6B35,
+                8px 8px 20px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.3rem;
+            color: #2D3142;
+            background: #FFF8E7;
+            padding: 0.5rem 1.5rem;
+            display: inline-block;
+            border: 3px solid #2D3142;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Vintage ribbon */
+        .ribbon {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .ribbon-text {
+            display: inline-block;
+            background: #FF6B35;
+            color: #FFF8E7;
+            padding: 0.75rem 3rem;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-top: 3px dashed #2D3142;
+            border-bottom: 3px dashed #2D3142;
+            position: relative;
+            letter-spacing: 0.15em;
+        }
+
+        .ribbon-text::before,
+        .ribbon-text::after {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #F7B801;
+        }
+
+        .ribbon-text::before { left: 1rem; }
+        .ribbon-text::after { right: 1rem; }
+
+        /* Movie poster cards */
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .retro-poster {
+            background: linear-gradient(135deg, #F7B801, #FF6B35);
+            border: 8px solid #2D3142;
+            border-radius: 4px;
+            padding: 2.5rem;
+            position: relative;
+            box-shadow:
+                8px 8px 0 rgba(45, 49, 66, 0.3),
+                0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .retro-poster::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px dashed #2D3142;
+            opacity: 0.3;
+        }
+
+        .retro-poster:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                12px 12px 0 rgba(45, 49, 66, 0.3),
+                0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .poster-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #004E89;
+            color: #F7B801;
+            padding: 0.5rem 1.5rem;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 3px solid #2D3142;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            transform: rotate(-3deg);
+        }
+
+        .poster-icon {
+            font-size: 5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(4px 4px 0 rgba(45, 49, 66, 0.3));
+        }
+
+        .poster-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #2D3142;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+        }
+
+        .poster-description {
+            text-align: center;
+            color: #2D3142;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        /* Game box */
+        .game-box {
+            background: #FFF8E7;
+            border: 10px solid #2D3142;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow:
+                12px 12px 0 rgba(255, 107, 53, 0.3),
+                0 15px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        /* Cassette tape counter */
+        .cassette-counter {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .counter-display {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #2D3142, #004E89);
+            border: 6px solid #FF6B35;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .counter-display::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: 8px;
+            bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .counter-label {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.75rem;
+            color: #F7B801;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        /* Flip counter */
+        .flip-counter {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        .flip-digit {
+            background: #FFF8E7;
+            border: 2px solid #FF6B35;
+            width: 50px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier Prime', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2D3142;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .flip-digit::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #2D3142;
+            opacity: 0.3;
+        }
+
+        /* Film strip divider */
+        .film-strip-divider {
+            height: 40px;
+            background:
+                repeating-linear-gradient(90deg,
+                    #2D3142 0px,
+                    #2D3142 15px,
+                    transparent 15px,
+                    transparent 25px
+                ),
+                linear-gradient(to bottom,
+                    #2D3142 0%,
+                    #2D3142 30%,
+                    transparent 30%,
+                    transparent 70%,
+                    #2D3142 70%
+                );
+            margin: 2.5rem 0;
+            border-top: 3px solid #2D3142;
+            border-bottom: 3px solid #2D3142;
+        }
+
+        /* Vintage progress bar */
+        .progress-container {
+            margin-bottom: 2.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            color: #2D3142;
+        }
+
+        .vintage-progress {
+            height: 30px;
+            background: #2D3142;
+            border: 4px solid #2D3142;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vintage-progress-fill {
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #FF6B35,
+                #FF6B35 10px,
+                #F7B801 10px,
+                #F7B801 20px
+            );
+            width: 65%;
+            transition: width 0.5s ease;
+            box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Ticket stub clues */
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .ticket-stub {
+            background: linear-gradient(135deg, #F7B801, #FF6B35);
+            border: 4px dashed #2D3142;
+            border-radius: 4px;
+            padding: 2rem;
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 rgba(45, 49, 66, 0.2);
+        }
+
+        .ticket-stub::before {
+            content: 'ADMIT ONE';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.65rem;
+            color: #2D3142;
+            opacity: 0.4;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        .ticket-stub::after {
+            content: '★';
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 1.5rem;
+            color: #2D3142;
+            opacity: 0.3;
+        }
+
+        .ticket-stub:hover {
+            transform: rotate(-2deg) scale(1.05);
+            box-shadow: 8px 8px 0 rgba(45, 49, 66, 0.3);
+        }
+
+        .ticket-stub.revealed {
+            background: linear-gradient(135deg, #FFF8E7, #FFE4B5);
+        }
+
+        .ticket-content {
+            font-weight: 700;
+            color: #2D3142;
+            font-size: 1.15rem;
+            line-height: 1.5;
+            z-index: 1;
+        }
+
+        .ticket-hidden {
+            font-size: 4rem;
+            color: rgba(45, 49, 66, 0.3);
+            font-family: 'Merriweather', serif;
+        }
+
+        /* Vintage input */
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            display: block;
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #2D3142;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .typewriter-input {
+            width: 100%;
+            padding: 1.5rem;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.2rem;
+            background: #FFF8E7;
+            border: 4px solid #2D3142;
+            color: #2D3142;
+            font-weight: 700;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .typewriter-input:focus {
+            outline: none;
+            border-color: #FF6B35;
+            box-shadow:
+                inset 0 2px 8px rgba(0, 0, 0, 0.1),
+                0 0 0 4px rgba(255, 107, 53, 0.2);
+        }
+
+        .typewriter-input::placeholder {
+            color: #8B8B8B;
+        }
+
+        /* Retro button */
+        .retro-button {
+            width: 100%;
+            padding: 1.8rem;
+            font-family: 'Merriweather', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF6B35, #F7B801);
+            color: #2D3142;
+            border: 6px solid #2D3142;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            box-shadow:
+                6px 6px 0 rgba(45, 49, 66, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .retro-button::before {
+            content: '»';
+            position: absolute;
+            left: 2rem;
+            font-size: 2rem;
+        }
+
+        .retro-button::after {
+            content: '«';
+            position: absolute;
+            right: 2rem;
+            font-size: 2rem;
+        }
+
+        .retro-button:hover {
+            transform: translate(3px, 3px);
+            box-shadow:
+                3px 3px 0 rgba(45, 49, 66, 0.4),
+                0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .retro-button:active {
+            transform: translate(6px, 6px);
+            box-shadow: none;
+        }
+
+        /* Alert banner */
+        .retro-alert {
+            background: linear-gradient(135deg, #004E89, #0066AA);
+            border: 4px solid #F7B801;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #FFF8E7;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .retro-alert::before,
+        .retro-alert::after {
+            content: '★ ★ ★';
+            display: block;
+            color: #F7B801;
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 6px double #2D3142;
+        }
+
+        .trophy-box {
+            background: linear-gradient(135deg, #F7B801, #FF6B35);
+            border: 8px solid #2D3142;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 8px 8px 0 rgba(45, 49, 66, 0.3);
+            position: relative;
+        }
+
+        .trophy-box::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 2px dashed #2D3142;
+        }
+
+        .trophy-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: swing 3s infinite ease-in-out;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .trophy-title {
+            font-family: 'Merriweather', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #2D3142;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .trophy-text {
+            color: #2D3142;
+            font-size: 1.1rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            .container { padding: 1rem; }
+            .game-box { padding: 1.5rem; }
+            .cassette-counter { flex-direction: column; }
+            .ticket-grid { grid-template-columns: 1fr; }
+            .poster-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="film-grain"></div>
+
+    <div class="container">
+        <header>
+            <div class="corner-ornament top-left"></div>
+            <div class="corner-ornament top-right"></div>
+            <div class="corner-ornament bottom-left"></div>
+            <div class="corner-ornament bottom-right"></div>
+
+            <h1>TFI BANISA</h1>
+            <p class="subtitle">Telugu Cinema Quiz Classic</p>
+        </header>
+
+        <div class="ribbon">
+            <div class="ribbon-text">Featured Game Modes</div>
+        </div>
+
+        <div class="poster-grid">
+            <div class="retro-poster">
+                <div class="poster-badge">MODE 01</div>
+                <div class="poster-icon">🎬</div>
+                <h2 class="poster-title">Katha Vintaava</h2>
+                <p class="poster-description">
+                    Journey through the golden age of Telugu cinema. Guess legendary movies from vintage clues.
+                    A nostalgic tribute to Tollywood!
+                </p>
+            </div>
+
+            <div class="retro-poster">
+                <div class="poster-badge">MODE 02</div>
+                <div class="poster-icon">🎵</div>
+                <h2 class="poster-title">Saregamapa</h2>
+                <p class="poster-description">
+                    Listen to timeless melodies that defined generations. Identify classic Telugu songs.
+                    Let the music transport you!
+                </p>
+            </div>
+        </div>
+
+        <div class="film-strip-divider"></div>
+
+        <div class="game-box">
+            <div class="cassette-counter">
+                <div class="counter-display">
+                    <div class="counter-label">Guesses Left</div>
+                    <div class="flip-counter">
+                        <div class="flip-digit">0</div>
+                        <div class="flip-digit">5</div>
+                    </div>
+                </div>
+
+                <div class="counter-display">
+                    <div class="counter-label">Total Score</div>
+                    <div class="flip-counter">
+                        <div class="flip-digit">4</div>
+                        <div class="flip-digit">2</div>
+                        <div class="flip-digit">0</div>
+                    </div>
+                </div>
+
+                <div class="counter-display">
+                    <div class="counter-label">Win Streak</div>
+                    <div class="flip-counter">
+                        <div class="flip-digit">0</div>
+                        <div class="flip-digit">3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>REEL PROGRESS</span>
+                    <span>FRAME 4/6</span>
+                </div>
+                <div class="vintage-progress">
+                    <div class="vintage-progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="film-strip-divider"></div>
+
+            <div class="ticket-grid">
+                <div class="ticket-stub revealed">
+                    <div class="ticket-content">
+                        DESCRIPTION:<br>
+                        Epic Romance<br>
+                        Period Drama
+                    </div>
+                </div>
+
+                <div class="ticket-stub revealed">
+                    <div class="ticket-content">
+                        YEAR:<br>
+                        2009<br>
+                        ★★★★★
+                    </div>
+                </div>
+
+                <div class="ticket-stub">
+                    <div class="ticket-hidden">?</div>
+                </div>
+
+                <div class="ticket-stub">
+                    <div class="ticket-hidden">?</div>
+                </div>
+            </div>
+
+            <div class="retro-alert">
+                ★ ★ ★
+                YOU'RE ON A WINNING STREAK!
+                ★ ★ ★
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">🎭 Your Guess:</label>
+                <input
+                    type="text"
+                    class="typewriter-input"
+                    placeholder="Type the movie name here..."
+                >
+            </div>
+
+            <button class="retro-button">
+                Submit Answer
+            </button>
+        </div>
+
+        <footer>
+            <div class="trophy-box">
+                <div class="trophy-icon">🏆</div>
+                <h3 class="trophy-title">Share The Glory!</h3>
+                <p class="trophy-text">
+                    Challenge your friends and family. Share your legendary scores with fellow Telugu cinema lovers!
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive ticket stubs
+        document.querySelectorAll('.ticket-stub:not(.revealed)').forEach(ticket => {
+            ticket.addEventListener('click', function() {
+                if (!this.classList.contains('revealed')) {
+                    this.classList.add('revealed');
+                    this.innerHTML = `
+                        <div class="ticket-content">
+                            ACTORS:<br>
+                            Prabhas<br>
+                            Anushka Shetty
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Animate progress on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.vintage-progress-fill').style.width = '80%';
+            }, 500);
+        });
+
+        // Counter animation
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 20;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 50);
+        }
+
+        // Button click effect
+        document.querySelector('.retro-button').addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
