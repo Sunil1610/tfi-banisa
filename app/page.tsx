@@ -1,4 +1,22 @@
 import Link from 'next/link'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Telugu Cinema Hub - Games, Fandom, Store & Recommendations',
+  description: 'Immerse yourself in Telugu cinema with interactive games like Katha Vintaava and Saregamapa, explore movie details, shop exclusive merchandise, and get daily movie recommendations.',
+  keywords: ['Telugu cinema', 'Telugu movies', 'movie games', 'Katha Vintaava', 'Saregamapa', 'Telugu film merchandise', 'movie recommendations'],
+  openGraph: {
+    title: 'Telugu Cinema Hub',
+    description: 'Your ultimate destination for Telugu cinema - games, movies, merchandise, and daily recommendations',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Telugu Cinema Hub',
+    description: 'Interactive Telugu cinema experience with games, fandom, and recommendations',
+  },
+}
 
 export default function Home() {
   return (

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import { Product, ProductCategory } from '@/types/product'
+
+// SEO Note: For client components, metadata should be set via Next.js head or layout
 import { ProductGrid, StoreFilterBar } from '@/components/store'
 import { Button, Spinner } from '@/components/ui'
 
