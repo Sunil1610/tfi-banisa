@@ -486,6 +486,7 @@ async function main() {
 
   // Clear existing data
   console.log('Clearing existing data...')
+  await prisma.dailyRecommendation.deleteMany()
   await prisma.product.deleteMany()
   await prisma.song.deleteMany()
   await prisma.movie.deleteMany()
@@ -546,6 +547,39 @@ async function main() {
     })
   }
   console.log(`✓ Created ${products.length} products`)
+
+  // Seed daily recommendations (past 7 days)
+  console.log('Seeding daily recommendations...')
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const recommendationDescriptions = [
+    'A masterpiece that showcases the grandeur and scale of Telugu cinema. A must-watch for any cinema enthusiast.',
+    'An emotionally powerful film that will stay with you long after the credits roll.',
+    'A perfect blend of entertainment and storytelling that represents the best of Telugu filmmaking.',
+    'An innovative and unique film that pushes the boundaries of conventional storytelling.',
+    'A heartwarming tale that beautifully captures the essence of human relationships.',
+    'A visually stunning epic that takes cinema to new heights.',
+    'A compelling narrative that showcases exceptional performances and direction.',
+  ]
+
+  for (let i = 6; i >= 0; i--) {
+    const date = new Date(today)
+    date.setDate(date.getDate() - i)
+
+    // Select a movie that hasn't been recommended yet
+    const movie = createdMovies[i % createdMovies.length]
+
+    await prisma.dailyRecommendation.create({
+      data: {
+        date,
+        movieId: movie.id,
+        description: recommendationDescriptions[6 - i],
+        curator: 'Telugu Cinema Hub',
+      },
+    })
+  }
+  console.log(`✓ Created 7 daily recommendations`)
 
   console.log('Database seed completed successfully!')
 }
