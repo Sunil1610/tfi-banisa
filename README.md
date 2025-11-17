@@ -1,6 +1,11 @@
 # Telugu Cinema Hub
 
-A minimal, clean web application for Telugu cinema enthusiasts featuring games, fandom pages, merchandise store, and daily movie recommendations.
+A comprehensive web application for Telugu cinema enthusiasts featuring interactive games, detailed movie information, exclusive merchandise, and daily movie recommendations.
+
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38bdf8)
+![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748)
 
 ## Features
 
@@ -68,7 +73,14 @@ A minimal, clean web application for Telugu cinema enthusiasts featuring games, 
    ```bash
    npx prisma generate
    npx prisma db push
+   npm run db:seed
    ```
+
+   This will seed your database with:
+   - 10 Telugu movies
+   - 5 popular songs with audio segments
+   - 20 merchandise products
+   - 7 days of daily recommendations
 
 5. **Run the development server:**
    ```bash
@@ -76,6 +88,14 @@ A minimal, clean web application for Telugu cinema enthusiasts featuring games, 
    ```
 
    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Available Scripts
+
+- `npm run dev` - Start development server on http://localhost:3000
+- `npm run build` - Build the application for production
+- `npm start` - Start the production server
+- `npm run lint` - Run ESLint for code quality
+- `npm run db:seed` - Seed the database with sample data
 
 ## Deployment on Vercel
 
@@ -122,6 +142,61 @@ telugu-cinema-hub/
 
 See [dev_plan.md](./dev_plan.md) for the complete implementation plan and phases.
 
+## SEO & Performance
+
+This project includes comprehensive SEO optimizations:
+
+- **Metadata**: Complete metadata for all pages with Open Graph and Twitter Cards
+- **Sitemap**: Auto-generated sitemap at `/sitemap.xml`
+- **Robots.txt**: Configured for search engine crawling
+- **Font Optimization**: Next.js font optimization with Inter from Google Fonts
+- **Image Optimization**: Next.js Image component for automatic optimization
+- **Error Handling**: Global error boundary for graceful error handling
+
+### Performance Features
+
+- Server-side rendering for initial page load
+- Client-side navigation for subsequent routes
+- Code splitting and lazy loading
+- Optimized bundle size
+- Responsive images
+- Efficient state management with Zustand
+
+## Database Schema
+
+The application uses the following main models:
+
+- **Movie**: Complete movie information with metadata, cast, crew, ratings
+- **Song**: Song data with audio segment URLs
+- **Product**: Merchandise products with categories and pricing
+- **DailyRecommendation**: Curated daily movie recommendations
+- **GameStats & SongGameStats**: Player statistics and achievements
+- **Watchlist**: User watchlist functionality
+- **UserRating**: User movie ratings and reviews
+
+See `prisma/schema.prisma` for the complete database schema.
+
+## Contributing
+
+Contributions are welcome! Please follow these guidelines:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes with clear messages
+4. Push to the branch
+5. Open a Pull Request
+
+## Acknowledgments
+
+- Telugu cinema community and filmmakers
+- Open source libraries and tools
+- S. S. Rajamouli and all featured directors
+- Contributors and supporters
+
 ## License
 
 MIT
+
+---
+
+Built with ❤️ for Telugu cinema enthusiasts
