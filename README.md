@@ -1,16 +1,34 @@
-# Tollywood Reels & Rhythms
+# Telugu Cinema Hub
 
-A web application for guessing Telugu movies and songs.
+A minimal, clean web application for Telugu cinema enthusiasts featuring games, fandom pages, merchandise store, and daily movie recommendations.
 
 ## Features
 
+### Games
 - **Katha Vintaava:** A movie guessing game where you have 6 chances to guess a Telugu movie title. With each incorrect guess, a new clue (like the year, cast, or director) is revealed.
 - **Saregamapa:** A song guessing game where you listen to a 5-second audio clip and guess the song. With each incorrect guess, 5 more seconds of the song are unlocked.
 
+### Fandom
+- Browse Telugu movies by category (Classics, Recent, Upcoming)
+- Detailed movie pages with comprehensive information
+- Search and filter functionality
+
+### Store
+- Browse movie-specific merchandise
+- Product categories (Posters, Apparel, Collectibles)
+
+### Recommendations
+- Daily curated movie recommendations
+- Watchlist functionality
+
 ## Tech Stack
 
-- **Framework:** Next.js (React) with TypeScript
-- **Styling:** Bootstrap and React-Bootstrap
+- **Framework:** Next.js 14 with App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS with custom minimal design system
+- **Database:** Prisma ORM (PostgreSQL)
+- **State Management:** Zustand
+- **Audio:** Howler.js
 - **Deployment:** Vercel
 
 ## Getting Started
@@ -34,15 +52,25 @@ A web application for guessing Telugu movies and songs.
    ```
 
 3. **Set up environment variables:**
-   Create a file named `.env.local` in the root of the project and add the following environment variables. You will need to obtain API keys from the respective services.
+   Copy `.env.example` to `.env.local` and update with your configuration:
 
-   ```
-   OMDB_API_KEY=your_omdb_api_key
-   GOOGLE_API_KEY=your_google_api_key
-   GOOGLE_CX=your_google_cx
+   ```bash
+   cp .env.example .env.local
    ```
 
-4. **Run the development server:**
+   Update the following variables:
+   - `DATABASE_URL`: Your PostgreSQL database URL
+   - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`: Cloudinary cloud name (for media storage)
+   - `CLOUDINARY_API_KEY`: Cloudinary API key
+   - `CLOUDINARY_API_SECRET`: Cloudinary API secret
+
+4. **Initialize the database:**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. **Run the development server:**
    ```bash
    npm run dev
    ```
@@ -58,7 +86,42 @@ This application is designed for easy deployment on Vercel.
 2. **Import your project on Vercel.**
 
 3. **Configure Environment Variables:**
-   In the Vercel project settings, add the same environment variables as in your `.env.local` file.
+   In the Vercel project settings, add the environment variables from your `.env.local` file.
 
 4. **Deploy.**
    Vercel will automatically build and deploy your application.
+
+## Project Structure
+
+```
+telugu-cinema-hub/
+├── app/                    # Next.js app directory
+│   ├── games/             # Game routes
+│   ├── fandom/            # Fandom routes
+│   ├── store/             # Store routes
+│   ├── recommendations/   # Recommendations routes
+│   └── api/               # API routes
+├── components/            # React components
+│   ├── layout/           # Layout components
+│   ├── ui/               # UI components
+│   ├── games/            # Game components
+│   ├── fandom/           # Fandom components
+│   ├── store/            # Store components
+│   └── recommendations/  # Recommendation components
+├── lib/                   # Utility libraries
+│   ├── db/               # Database utilities
+│   ├── utils/            # Helper functions
+│   └── constants/        # Constants
+├── hooks/                 # React hooks
+├── store/                 # Zustand stores
+├── types/                 # TypeScript types
+└── prisma/               # Prisma schema and migrations
+```
+
+## Development Plan
+
+See [dev_plan.md](./dev_plan.md) for the complete implementation plan and phases.
+
+## License
+
+MIT
