@@ -15,3 +15,6 @@ export type { ModalProps } from './Modal'
 
 export { Spinner } from './Spinner'
 export type { SpinnerProps } from './Spinner'
+
+export { Skeleton, CardSkeleton, MovieCardSkeleton, ListSkeleton } from './Skeleton'
+export type { SkeletonProps } from './Skeleton'
