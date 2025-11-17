@@ -278,20 +278,226 @@ const songs = [
   },
 ]
 
+const products = [
+  {
+    name: 'Baahubali Movie Poster',
+    description: 'Official high-quality poster of Baahubali: The Beginning featuring the iconic battle scene',
+    price: 499,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/baahubali-poster',
+    inStock: true,
+    featured: true,
+  },
+  {
+    name: 'RRR T-Shirt - Naatu Naatu',
+    description: 'Premium cotton t-shirt featuring Naatu Naatu dance artwork from RRR',
+    price: 799,
+    category: 'Apparel',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/rrr-tshirt',
+    inStock: true,
+    featured: true,
+  },
+  {
+    name: 'Pushpa Action Figure',
+    description: 'Collectible action figure of Pushpa Raj in iconic hand gesture pose',
+    price: 1499,
+    category: 'Collectibles',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/pushpa-figure',
+    inStock: true,
+    featured: true,
+  },
+  {
+    name: 'Arjun Reddy Hoodie',
+    description: 'Comfortable hoodie with Arjun Reddy movie artwork',
+    price: 1299,
+    category: 'Apparel',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/arjun-reddy-hoodie',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Mahanati Book - Savitri Biography',
+    description: 'Complete biography of legendary actress Savitri with rare photographs',
+    price: 599,
+    category: 'Books',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/mahanati-book',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Baahubali 2 Poster Set',
+    description: 'Set of 3 premium posters from Baahubali 2: The Conclusion',
+    price: 899,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/baahubali2-poster-set',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Eega Movie Collectible',
+    description: 'Limited edition collectible from the fantasy film Eega',
+    price: 1999,
+    category: 'Collectibles',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/eega-collectible',
+    inStock: false,
+    featured: false,
+  },
+  {
+    name: 'Fidaa Couple T-Shirt',
+    description: 'Matching couple t-shirts inspired by Fidaa romance',
+    price: 1499,
+    category: 'Apparel',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/fidaa-couple-tshirt',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'RRR Ram Charan Poster',
+    description: 'Exclusive poster featuring Ram Charan from RRR',
+    price: 449,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/rrr-ram-charan-poster',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'RRR NTR Poster',
+    description: 'Exclusive poster featuring N. T. Rama Rao Jr. from RRR',
+    price: 449,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/rrr-ntr-poster',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Pushpa Cap',
+    description: 'Stylish cap with Pushpa movie branding',
+    price: 399,
+    category: 'Apparel',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/pushpa-cap',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Rangasthalam Poster',
+    description: 'Beautiful poster from the period drama Rangasthalam',
+    price: 499,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/rangasthalam-poster',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Telugu Cinema History Book',
+    description: 'Comprehensive book covering 100 years of Telugu cinema',
+    price: 1299,
+    category: 'Books',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/telugu-cinema-history',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Ala Vaikunthapurramuloo Poster',
+    description: 'Colorful poster from the family entertainer Ala Vaikunthapurramuloo',
+    price: 449,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/avpl-poster',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Baahubali Sword Replica',
+    description: 'Collectible replica of Baahubali\'s sword (decorative)',
+    price: 2999,
+    category: 'Collectibles',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/baahubali-sword',
+    inStock: false,
+    featured: false,
+  },
+  {
+    name: 'Mahanati Framed Poster',
+    description: 'Premium framed poster of Mahanati with Keerthy Suresh',
+    price: 1499,
+    category: 'Poster',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/mahanati-framed-poster',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Telugu Cinema Coffee Mug Set',
+    description: 'Set of 4 mugs featuring iconic Telugu movie dialogues',
+    price: 799,
+    category: 'Other',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/movie-mug-set',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'RRR Naatu Naatu Dance Book',
+    description: 'Behind-the-scenes book about the making of Naatu Naatu song',
+    price: 699,
+    category: 'Books',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/naatu-naatu-book',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Pushpa Notebook Set',
+    description: 'Set of 3 notebooks with Pushpa movie designs',
+    price: 349,
+    category: 'Other',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/pushpa-notebooks',
+    inStock: true,
+    featured: false,
+  },
+  {
+    name: 'Arjun Reddy Sunglasses',
+    description: 'Replica of iconic sunglasses worn by Vijay Deverakonda in Arjun Reddy',
+    price: 1199,
+    category: 'Collectibles',
+    imageUrl: ['https://res.cloudinary.com/sample/image/upload/sample.jpg'],
+    purchaseUrl: 'https://example.com/buy/arjun-reddy-sunglasses',
+    inStock: true,
+    featured: false,
+  },
+]
+
 async function main() {
   console.log('Starting database seed...')
 
   // Clear existing data
   console.log('Clearing existing data...')
+  await prisma.product.deleteMany()
   await prisma.song.deleteMany()
   await prisma.movie.deleteMany()
 
   // Seed movies
   console.log('Seeding movies...')
+  const createdMovies = []
   for (const movie of movies) {
-    await prisma.movie.create({
+    const created = await prisma.movie.create({
       data: movie,
     })
+    createdMovies.push(created)
   }
   console.log(`✓ Created ${movies.length} movies`)
 
@@ -303,6 +509,43 @@ async function main() {
     })
   }
   console.log(`✓ Created ${songs.length} songs`)
+
+  // Seed products (some linked to movies)
+  console.log('Seeding products...')
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i]
+    // Link some products to movies
+    let movieId = undefined
+    if (product.name.includes('Baahubali') && !product.name.includes('2')) {
+      movieId = createdMovies.find((m) => m.title === 'Baahubali: The Beginning')?.id
+    } else if (product.name.includes('Baahubali 2')) {
+      movieId = createdMovies.find((m) => m.title === 'Baahubali 2: The Conclusion')?.id
+    } else if (product.name.includes('RRR')) {
+      movieId = createdMovies.find((m) => m.title === 'RRR')?.id
+    } else if (product.name.includes('Pushpa')) {
+      movieId = createdMovies.find((m) => m.title === 'Pushpa: The Rise')?.id
+    } else if (product.name.includes('Arjun Reddy')) {
+      movieId = createdMovies.find((m) => m.title === 'Arjun Reddy')?.id
+    } else if (product.name.includes('Mahanati')) {
+      movieId = createdMovies.find((m) => m.title === 'Mahanati')?.id
+    } else if (product.name.includes('Fidaa')) {
+      movieId = createdMovies.find((m) => m.title === 'Fidaa')?.id
+    } else if (product.name.includes('Eega')) {
+      movieId = createdMovies.find((m) => m.title === 'Eega')?.id
+    } else if (product.name.includes('Rangasthalam')) {
+      movieId = createdMovies.find((m) => m.title === 'Rangasthalam')?.id
+    } else if (product.name.includes('Ala Vaikunthapurramuloo')) {
+      movieId = createdMovies.find((m) => m.title === 'Ala Vaikunthapurramuloo')?.id
+    }
+
+    await prisma.product.create({
+      data: {
+        ...product,
+        movieId,
+      },
+    })
+  }
+  console.log(`✓ Created ${products.length} products`)
 
   console.log('Database seed completed successfully!')
 }
