@@ -1,0 +1,5 @@
+export { MovieCard } from './MovieCard'
+export { MovieGrid } from './MovieGrid'
+export { SearchBar } from './SearchBar'
+export { FilterBar } from './FilterBar'
+export { FeaturedSection } from './FeaturedSection'
