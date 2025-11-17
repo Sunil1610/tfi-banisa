@@ -65,18 +65,18 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside className="w-64 bg-bg-secondary border-r border-border-primary min-h-screen p-6 hidden md:block">
-      <Link href="/">
-        <h1 className="text-xl font-semibold mb-8 text-text-primary">
+      <Link href="/" className="block mb-10">
+        <h1 className="text-xl font-bold text-text-primary tracking-tight">
           Telugu Cinema Hub
         </h1>
       </Link>
 
-      <nav className="space-y-2">
+      <nav className="space-y-1">
         {navigation.map((item) => (
           <div key={item.name}>
             <Link
               href={item.href}
-              className={`flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+              className={`flex items-center justify-between px-3 py-2.5 rounded-lg transition-all duration-200 ${
                 isActive(item.href)
                   ? 'bg-bg-tertiary text-text-primary'
                   : 'text-text-secondary hover:text-text-primary hover:bg-bg-tertiary'
@@ -89,12 +89,14 @@ export const Sidebar: React.FC = () => {
               }}
             >
               <div className="flex items-center space-x-3">
-                {item.icon}
-                <span>{item.name}</span>
+                <div className={isActive(item.href) ? 'text-accent-primary' : ''}>
+                  {item.icon}
+                </div>
+                <span className="font-medium text-sm">{item.name}</span>
               </div>
               {item.subItems && (
                 <svg
-                  className={`w-4 h-4 transition-transform ${
+                  className={`w-4 h-4 transition-transform duration-200 ${
                     expandedItems.includes(item.name) ? 'transform rotate-180' : ''
                   }`}
                   fill="none"
@@ -107,15 +109,15 @@ export const Sidebar: React.FC = () => {
             </Link>
 
             {item.subItems && expandedItems.includes(item.name) && (
-              <div className="ml-6 mt-2 space-y-2">
+              <div className="ml-9 mt-1 space-y-1">
                 {item.subItems.map((subItem) => (
                   <Link
                     key={subItem.name}
                     href={subItem.href}
-                    className={`block px-4 py-2 rounded-lg text-sm transition-colors ${
+                    className={`block px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
                       pathname === subItem.href
-                        ? 'bg-bg-tertiary text-text-primary'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-bg-tertiary'
+                        ? 'bg-bg-tertiary text-accent-primary font-medium'
+                        : 'text-text-tertiary hover:text-text-primary hover:bg-bg-tertiary'
                     }`}
                   >
                     {subItem.name}

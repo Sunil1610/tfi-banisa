@@ -7,25 +7,29 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+      },
       colors: {
         bg: {
-          primary: '#1a1a1a',
-          secondary: '#242424',
-          tertiary: '#2a2a2a',
+          primary: '#0f0f0f',
+          secondary: '#1a1a1a',
+          tertiary: '#252525',
         },
         border: {
-          primary: '#333',
-          secondary: '#444',
-          tertiary: '#555',
+          primary: '#2a2a2a',
+          secondary: '#3a3a3a',
+          hover: '#4a4a4a',
         },
         text: {
-          primary: '#e0e0e0',
-          secondary: '#a0a0a0',
-          tertiary: '#666',
-          muted: '#555',
+          primary: '#f5f5f5',
+          secondary: '#b0b0b0',
+          tertiary: '#808080',
+          muted: '#606060',
         },
         accent: {
-          subtle: '#444',
+          primary: '#4a9eff',
+          hover: '#3a8eef',
         },
       },
       spacing: {
