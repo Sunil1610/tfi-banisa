@@ -1,0 +1,158 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Movie Schema for Katha Vintaava Game and Fandom
+model Movie {
+  id                String   @id @default(cuid())
+  title             String
+  titleTelugu       String
+  alternativeTitles String[]
+  year              Int
+  genre             String[]
+  leadActor         String
+  leadActress       String
+  director          String
+  plotHint          String
+  description       String   @default("")
+  posterUrl         String
+  rating            Float
+  popularity        Int
+  cast              Json?
+  crew              Json?
+  boxOffice         Json?
+  awards            Json?
+  trivia            String[]
+  tags              String[]
+  trailerUrl        String?
+  imdbId            String?
+  imdbRating        Float?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  gameStats            GameStats[]
+  userRatings          UserRating[]
+  dailyChallenges      DailyChallenge[]
+  dailyRecommendations DailyRecommendation[]
+  watchlists           Watchlist[]
+  products             Product[]
+}
+
+// Game Statistics for Katha Vintaava
+model GameStats {
+  id         String   @id @default(cuid())
+  movieId    String
+  movie      Movie    @relation(fields: [movieId], references: [id])
+  userId     String?
+  guessCount Int
+  won        Boolean
+  playedAt   DateTime @default(now())
+}
+
+// Daily Challenge for Katha Vintaava
+model DailyChallenge {
+  id      String   @id @default(cuid())
+  date    DateTime @unique
+  movieId String
+  movie   Movie    @relation(fields: [movieId], references: [id])
+}
+
+// Song Schema for Saregamapa Game
+model Song {
+  id            String   @id @default(cuid())
+  title         String
+  titleTelugu   String
+  movie         String
+  movieId       String?
+  singers       String[]
+  musicDirector String
+  lyricist      String
+  year          Int
+  audioUrl      String
+  audioSegments Json
+  posterUrl     String
+  popularity    Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  gameStats            SongGameStats[]
+  dailySongChallenges  DailySongChallenge[]
+}
+
+// Song Game Statistics
+model SongGameStats {
+  id         String   @id @default(cuid())
+  songId     String
+  song       Song     @relation(fields: [songId], references: [id])
+  userId     String?
+  guessCount Int
+  won        Boolean
+  playedAt   DateTime @default(now())
+}
+
+// Daily Song Challenge
+model DailySongChallenge {
+  id     String   @id @default(cuid())
+  date   DateTime @unique
+  songId String
+  song   Song     @relation(fields: [songId], references: [id])
+}
+
+// User Ratings for Movies
+model UserRating {
+  id        String   @id @default(cuid())
+  movieId   String
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  userId    String
+  rating    Float
+  review    String?
+  createdAt DateTime @default(now())
+}
+
+// Products for Store
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  currency    String   @default("INR")
+  category    String
+  movieId     String?
+  movie       Movie?   @relation(fields: [movieId], references: [id])
+  imageUrl    String[]
+  purchaseUrl String
+  inStock     Boolean  @default(true)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Daily Recommendations
+model DailyRecommendation {
+  id          String   @id @default(cuid())
+  date        DateTime @unique
+  movieId     String
+  movie       Movie    @relation(fields: [movieId], references: [id])
+  description String
+  curator     String?
+}
+
+// Watchlist
+model Watchlist {
+  id        String   @id @default(cuid())
+  userId    String
+  movieId   String
+  movie     Movie    @relation(fields: [movieId], references: [id])
+  watched   Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, movieId])
+}
