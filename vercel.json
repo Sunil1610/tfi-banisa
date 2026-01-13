@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npm run build:deploy",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["bom1"],
+  "github": {
+    "silent": true
+  }
+}
